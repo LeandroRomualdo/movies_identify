@@ -1,24 +1,16 @@
-from keras.preprocessing.image import ImageDataGenerator
-from get_image import get_videos_frames
-
+import cv2
 
 class image_treatment():
 
-    def __init__(self, path):
+    def __init__(self, image,path):
+        self.image = image
         self.path = path
 
-    def datagen(self):
-        train_datagen = ImageDataGenerator(rescale = 1./255,
-                                            shear_range = 0.2,
-                                            zoom_range = 0.2,
-                                            horizontal_flip = True)
-        
-        test_datagen = ImageDataGenerator(rescale = 1./255)
+    def resize_image(self,image,path):
 
-    def data_generator(self):
-        training_data = datagen.flow_from_directory(
-            'train/',
-            target_size = (520,520),
-            batch_size=32,
-            class_mode='categorical')
-    
+        width = 520
+        height = 520
+        path_loc = path+'/'
+
+        img = cv2.resize(image, width,height)
+        cv2.imwrite(path_loc, img)
